@@ -30,7 +30,7 @@ const Screens = () => {
 
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
-                        if (route.name === "Home") {
+                        if (route.name === "SideBar") {
                             iconName = "home"
                             color = focused ? "#fff" : "#a9a9a9"
                         }
@@ -56,7 +56,7 @@ const Screens = () => {
 
                 })}
             >
-                <HomeStack.Screen name="Home" component={SideBar} options={{
+                <HomeStack.Screen name="SideBar" component={SideBar} options={{
                     tabBarShowLabel: false, headerShown: false
                 }} />
                 <HomeStack.Screen name="ReadingList" component={ReadingListScreen} options={{
