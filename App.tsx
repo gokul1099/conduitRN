@@ -8,13 +8,20 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigator from './app/Navigation/NavigationStack';
+import SplashScreen from "react-native-splash-screen";
 
 
 
 const App = () => {
+  useEffect(() => {
 
+    setTimeout(() => {
+      SplashScreen.hide();
+
+    }, 500)
+  }, [])
 
   return (
     <Navigator />
