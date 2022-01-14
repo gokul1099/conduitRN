@@ -18,12 +18,14 @@
     "react-native": "0.66.4",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^2.1.1",
+    "react-native-linkedin": "^2.1.1",
     "react-native-modal": "^13.0.0",
     "react-native-reanimated": "2.2.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
     "react-native-splash-screen": "^3.3.0",
-    "react-native-vector-icons": "^9.0.0"
+    "react-native-vector-icons": "^9.0.0",
+    "react-native-webview": "^11.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

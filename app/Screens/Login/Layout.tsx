@@ -1,17 +1,20 @@
-import React, { useState } from "react"
+import React, { useState, createRef } from "react"
 import { View, Text, StyleSheet, Pressable, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native"
 import Modal from "react-native-modal"
 import TextField from "../../Components/TextField"
 const { height, width } = Dimensions.get("window")
-// import Icon from 'react-native-vector-icons/AntDesign'
-// import SquareIcon from "react-native-vector-icons/FontAwesome"
 import { SocialIcon } from 'react-native-elements';
+import LinkedIn from "../../Components/SocialLogins/LinkedIn"
+import LinkedInModal from 'react-native-linkedin'
 
 
 interface IProps { }
 const Layout = (props: IProps) => {
     const { isVisible, setVisible } = props
+    const [showLinkedin, setShowLinkedin] = useState(false)
     const [selected, setSelected] = useState("login")
+    const linkedin = createRef()
+
     return (
         <View >
             <Modal isVisible={isVisible} propagateSwipe={true}>
@@ -48,9 +51,11 @@ const Layout = (props: IProps) => {
                                 <View style={styles.loginWith}></View>
                             </View>
                             <View style={styles.iconContainer}>
-                                <View style={styles.icon}><SocialIcon type="facebook" iconSize={20} onPress={() => { console.log('foursquare'); }} /></View>
+                                <View style={styles.icon}><SocialIcon type="facebook" onPress={() => { console.log("facebook") }} /></View>
                                 <View style={styles.icon}><SocialIcon type="google" onPress={() => { console.log('foursquare'); }} /></View>
-                                <View style={styles.icon}><SocialIcon type="linkedin" onPress={() => { console.log('foursquare'); }} /></View>
+                                <View style={styles.icon}>
+                                    <LinkedIn showLinked={showLinkedin} />
+                                </View>
                             </View>
                         </View>
                     </View>
@@ -71,13 +76,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: height * 0.01,
+        marginTop: height * 0.001,
     },
     form: {
         flex: 0.67,
     },
     option: {
-
         borderRadius: 20,
         width: width * 0.35,
         height: height * 0.06,
