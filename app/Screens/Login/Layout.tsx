@@ -3,6 +3,10 @@ import { View, Text, StyleSheet, Pressable, Dimensions, KeyboardAvoidingView, Sc
 import Modal from "react-native-modal"
 import TextField from "../../Components/TextField"
 const { height, width } = Dimensions.get("window")
+// import Icon from 'react-native-vector-icons/AntDesign'
+// import SquareIcon from "react-native-vector-icons/FontAwesome"
+import { SocialIcon } from 'react-native-elements';
+
 
 interface IProps { }
 const Layout = (props: IProps) => {
@@ -17,8 +21,8 @@ const Layout = (props: IProps) => {
                             <Text style={{ color: "black", fontSize: 20 }}>X</Text>
                         </Pressable>
                         <View style={styles.header}>
-                            <Pressable onPress={() => { setSelected("login") }} style={[styles.option, { backgroundColor: selected == "login" ? "purple" : "#fff" }]}><Text style={styles.optionText}>Login</Text></Pressable>
-                            <Pressable onPress={() => { setSelected("signup") }} style={[styles.option, { backgroundColor: selected == "signup" ? "purple" : "#fff" }]}><Text style={styles.optionText}>SignUp</Text></Pressable>
+                            <Pressable onPress={() => { setSelected("login") }} style={[styles.option, { backgroundColor: selected == "login" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "login" ? "white" : "black" }]}>Login</Text></Pressable>
+                            <Pressable onPress={() => { setSelected("signup") }} style={[styles.option, { backgroundColor: selected == "signup" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "signup" ? "white" : "black" }]}>SignUp</Text></Pressable>
                         </View>
                         {selected == "login" &&
                             <View style={styles.form}>
@@ -43,7 +47,11 @@ const Layout = (props: IProps) => {
                                 <View style={{ justifyContent: "center", alignItems: "center" }}><Text>Or login with</Text></View>
                                 <View style={styles.loginWith}></View>
                             </View>
-
+                            <View style={styles.iconContainer}>
+                                <View style={styles.icon}><SocialIcon type="facebook" iconSize={20} onPress={() => { console.log('foursquare'); }} /></View>
+                                <View style={styles.icon}><SocialIcon type="google" onPress={() => { console.log('foursquare'); }} /></View>
+                                <View style={styles.icon}><SocialIcon type="linkedin" onPress={() => { console.log('foursquare'); }} /></View>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>
@@ -56,17 +64,17 @@ const styles = StyleSheet.create({
     modalContainer: {
         backgroundColor: "#fff",
         flex: 1,
-        height: height * 0.9
+        height: height * 0.95
     },
     header: {
         flex: 0.1,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: height * 0.05,
+        marginTop: height * 0.01,
     },
     form: {
-        flex: 0.7,
+        flex: 0.67,
     },
     option: {
 
@@ -81,12 +89,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     footer: {
-        flex: 0.2,
-        alignItems: "center"
+        flex: 0.29,
+        alignItems: "center",
+        height: height * 0.4,
+
     },
     btn: {
         width: width * 0.5,
-        backgroundColor: "blue",
+        backgroundColor: "black",
         justifyContent: "center",
         alignItems: "center",
         padding: 5,
@@ -94,12 +104,23 @@ const styles = StyleSheet.create({
     },
     btnText: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#fff"
     },
     loginWith: {
         borderTopWidth: 2,
         margin: 20,
         width: 70
+    },
+    iconContainer: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        paddingBottom: 20
+    },
+    icon: {
+        marginHorizontal: 20,
+        justifyContent: "center"
     }
 })
 
