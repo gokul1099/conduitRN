@@ -54,7 +54,17 @@ const Layout = (props: IProps) => {
                                 <View style={styles.icon}><SocialIcon type="facebook" onPress={() => { console.log("facebook") }} /></View>
                                 <View style={styles.icon}><SocialIcon type="google" onPress={() => { console.log('foursquare'); }} /></View>
                                 <View style={styles.icon}>
-                                    <LinkedIn showLinked={showLinkedin} />
+                                    <LinkedInModal
+                                        ref={linkedin}
+                                        renderButton={() => <SocialIcon type="linkedin" />}
+                                        linkText={""}
+                                        clientID={"86ceoya3yiyxzh"}
+                                        clientSecret={"IxCXmXIVwpppElOC"}
+                                        redirectUri={"http://localhost:19006/"}
+                                        onSuccess={(token) => {
+                                            console.log(token)
+                                        }}
+                                    />
                                 </View>
                             </View>
                         </View>
