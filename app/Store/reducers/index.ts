@@ -1,3 +1,8 @@
-import * as onboardingReducer from "./onboarding"
+import { combineReducers } from 'redux'
+import onboardingReducer from "./onboarding"
 
-export default Object.assign({}, onboardingReducer)
+const allReducers = combineReducers({
+    onboarding: onboardingReducer
+})
+
+export default allReducers

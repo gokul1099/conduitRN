@@ -1,7 +1,7 @@
 
 import actionTypes from "../actions/type";
 const initialState = {}
-export const onboardingReducer = (state = initialState, actions: any) => {
+const onboardingReducer = (state = initialState, actions: any) => {
     switch (actions.type) {
         case actionTypes.LOGIN:
             return {
@@ -25,3 +25,5 @@ export const onboardingReducer = (state = initialState, actions: any) => {
             break;
     }
 }
+
+export default onboardingReducer
