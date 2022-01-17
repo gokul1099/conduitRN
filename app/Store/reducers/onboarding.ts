@@ -1,29 +1,38 @@
 
 import actionTypes from "../actions/type";
-const initialState = {}
-const onboardingReducer = (state = initialState, actions: any) => {
-    switch (actions.type) {
-        case actionTypes.LOGIN:
-            return {
-                ...state
-            }
-        case actionTypes.LOGIN_DATA:
-            return {
-                ...state,
-                [actions.index]: [actions.data]
-            }
-        case actionTypes.SIGNUP:
-            return {
-                ...state
-            }
-        case actionTypes.SIGNUP_DATA:
-            return {
-                ...state,
-                [actions.index]: [actions.data]
-            }
-        default:
-            break;
-    }
+export default function createReducer(initialState: any, handlers: any) {
+    return function reducer(state = initialState, action: any) {
+        if (handlers.hasOwnProperty(action.type)) {
+            return handlers[action.type](state, action);
+        } else {
+            return state;
+        }
+    };
 }
 
-export default onboardingReducer
+const initialState = {}
+export const onboardingReducer = createReducer(initialState, {
+    [actionTypes.LOGIN](state: any, action: any) {
+        return {
+            ...state
+        }
+    },
+    [actionTypes.LOGIN_DATA](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: [action.data]
+        }
+    },
+    [actionTypes.SIGNUP](state: any, action: any) {
+        return {
+            ...state
+        }
+    },
+    [actionTypes.SIGNUP_DATA](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: [action.data]
+        }
+    }
+})
+
