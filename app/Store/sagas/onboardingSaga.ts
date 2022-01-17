@@ -6,6 +6,7 @@ import { put, call } from "redux-saga/effects"
 
 export function* signupSaga(service: any, payload: object): any {
     try {
+
         const response = yield call(service, payload)
         yield put(onboardingAction.singupData("userData", response.data, actionTypes.SIGNUP_DATA))
 

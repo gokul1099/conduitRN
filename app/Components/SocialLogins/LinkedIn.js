@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SocialIcon } from 'react-native-elements';
 const LinkedIn = (props) => {
     const { showLinked } = props
-    console.log(showLinked)
+
     const linkedin = createRef()
     return (
         <View style={{ flex: 1 }}>

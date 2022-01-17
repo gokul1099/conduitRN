@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View, TextInput } from 'react-native'
+import Icon from "react-native-vector-icons/AntDesign";
 
 const TextField = (props) => {
     return (
@@ -7,7 +8,12 @@ const TextField = (props) => {
             <Text style={styles.text}>{props.text}</Text>
             <TextInput placeholder={props.placeholder}
                 placeholderTextColor="black"
-                style={styles.textField} />
+                onChangeText={(text) => { props.setText(text) }}
+                textContentType={props.textContentType}
+                style={styles.textField}
+                secureTextEntry={props.secureTextEntry}
+                returnKeyType='next'
+            />
         </View>
     )
 }

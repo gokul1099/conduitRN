@@ -15,7 +15,7 @@ const config = {
 const middleWare = []
 const sagaMiddleware = createSagaMiddleware()
 middleWare.push(sagaMiddleware)
-middleWare.push(createLogger())
+// middleWare.push(createLogger())
 
 
 

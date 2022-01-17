@@ -13,6 +13,7 @@ export default function createReducer(initialState: any, handlers: any) {
 const initialState = {}
 export const onboardingReducer = createReducer(initialState, {
     [actionTypes.LOGIN](state: any, action: any) {
+
         return {
             ...state
         }
@@ -24,6 +25,7 @@ export const onboardingReducer = createReducer(initialState, {
         }
     },
     [actionTypes.SIGNUP](state: any, action: any) {
+
         return {
             ...state
         }

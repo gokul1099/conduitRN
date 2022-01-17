@@ -6,15 +6,50 @@ const { height, width } = Dimensions.get("window")
 import { SocialIcon } from 'react-native-elements';
 import LinkedIn from "../../Components/SocialLogins/LinkedIn"
 import LinkedInModal from 'react-native-linkedin'
+import { signin, signup } from "../../Store/actions/onboarding"
+import { connect } from "react-redux"
+import actionTypes from "../../Store/actions/type"
 
-
-interface IProps { }
+interface IProps {
+    signin: any,
+    signup: any
+}
 const Layout = (props: IProps) => {
     const { isVisible, setVisible } = props
     const [showLinkedin, setShowLinkedin] = useState(false)
+    const [userName, setUserName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const [selected, setSelected] = useState("login")
-    const linkedin = createRef()
 
+    const linkedin = createRef()
+    const onSubmit = () => {
+        if (selected == "signup") {
+            props.signup(actionTypes.SIGNUP,
+                {
+                    module: "users",
+                    action: "",
+                    formData: {
+                        user: {
+                            username: userName,
+                            email: email,
+                            password: password
+                        }
+                    }
+                })
+        }
+        else {
+            props.signup(actionTypes.LOGIN,
+                {
+                    module: "users",
+                    action: "login",
+                    formData: {
+                        email: email,
+                        password: password
+                    }
+                })
+        }
+    }
     return (
         <View >
             <Modal isVisible={isVisible} propagateSwipe={true}>
@@ -29,20 +64,20 @@ const Layout = (props: IProps) => {
                         </View>
                         {selected == "login" &&
                             <View style={styles.form}>
-                                <TextField placeholder={"Your email id"} text={"Email"} />
-                                <TextField placeholder={"Password"} text={"Password"} />
+                                <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+                                <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
                             </View>
                         }
                         {
                             selected == "signup" &&
                             <View style={styles.form}>
-                                <TextField placeholder={"Enter yout name"} text={"Name"} />
-                                <TextField placeholder={"Your email id"} text={"Email"} />
-                                <TextField placeholder={"Password"} text={"Password"} />
+                                <TextField placeholder={"Enter yout name"} text={"Name"} setText={setUserName} secureTextEntry={false} />
+                                <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+                                <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
                             </View>
                         }
                         <View style={styles.footer}>
-                            <Pressable style={styles.btn}>
+                            <Pressable style={styles.btn} onPress={() => { onSubmit() }}>
                                 <Text style={styles.btnText}>{selected == "login" ? "LogIn" : "SignUp"}</Text>
                             </Pressable>
                             <View style={{ flexDirection: "row" }}>
@@ -137,5 +172,13 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     }
 })
+const mapStatesToProps = () => {
 
-export default Layout
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signin: (type: any, req: Object) => dispatch(signin(type, req)),
+        signup: (type: any, req: Object) => dispatch(signup(type, req))
+    }
+}
+export default connect(null, mapDispatchToProps)(Layout)

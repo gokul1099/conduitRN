@@ -9,7 +9,8 @@ export function loader(index: string, data: boolean, type: string) {
         data
     }
 }
-export function signun(type: string, payload: any) {
+export function signup(type: string, payload: any) {
+
     return {
         type,
         payload
