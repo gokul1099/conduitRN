@@ -1,4 +1,6 @@
 const actionTypes = {
+    "IS_LOGIN": "IS_LOGIN",
+    "ERROR": "ERROR",
     "LOGIN": "LOGIN",
     "LOGIN_DATA": "LOGIN_DATA",
 

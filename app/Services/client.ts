@@ -2,7 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
 
 
-
+const handleError = (error: Object) => {
+    console.log(error.data)
+    return error
+}
 
 const request = async (options: any) => {
 
@@ -39,10 +42,11 @@ const callService = (options: Object) => {
     console.log(client, "client")
     return axios(client).then(function (response) {
         console.log(response.data, "response from client")
+
         return response
     }).catch(function (error) {
-        console.log(error, "error from client")
-        return error
+
+        return handleError(error.response)
     })
 }
 export default request

@@ -12,6 +12,18 @@ export default function createReducer(initialState: any, handlers: any) {
 
 const initialState = {}
 export const onboardingReducer = createReducer(initialState, {
+    [actionTypes.IS_LOGIN](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: action.data
+        }
+    },
+    [actionTypes.ERROR](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: action.data
+        }
+    },
     [actionTypes.LOGIN](state: any, action: any) {
 
         return {
@@ -19,9 +31,10 @@ export const onboardingReducer = createReducer(initialState, {
         }
     },
     [actionTypes.LOGIN_DATA](state: any, action: any) {
+        console.log("from  reducer")
         return {
             ...state,
-            [action.index]: [action.data]
+            [action.index]: action.data
         }
     },
     [actionTypes.SIGNUP](state: any, action: any) {
@@ -31,9 +44,10 @@ export const onboardingReducer = createReducer(initialState, {
         }
     },
     [actionTypes.SIGNUP_DATA](state: any, action: any) {
+        console.log("from  reducer")
         return {
             ...state,
-            [action.index]: [action.data]
+            [action.index]: action.data
         }
     }
 })

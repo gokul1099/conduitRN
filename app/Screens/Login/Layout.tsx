@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react"
+import React, { useState, createRef, useEffect } from "react"
 import { View, Text, StyleSheet, Pressable, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native"
 import Modal from "react-native-modal"
 import TextField from "../../Components/TextField"
@@ -6,13 +6,17 @@ const { height, width } = Dimensions.get("window")
 import { SocialIcon } from 'react-native-elements';
 import LinkedIn from "../../Components/SocialLogins/LinkedIn"
 import LinkedInModal from 'react-native-linkedin'
-import { signin, signup } from "../../Store/actions/onboarding"
+import { signin, signup, isLoggedin, errors, loader } from "../../Store/actions/onboarding"
 import { connect } from "react-redux"
 import actionTypes from "../../Store/actions/type"
-
+import { useSelector } from "react-redux"
 interface IProps {
     signin: any,
-    signup: any
+    signup: any,
+    errors: any,
+    setVisible: Function,
+    isVisible: boolean
+
 }
 const Layout = (props: IProps) => {
     const { isVisible, setVisible } = props
@@ -21,7 +25,10 @@ const Layout = (props: IProps) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [selected, setSelected] = useState("login")
-
+    const data = useSelector(state => state.onboardingReducer.userData)
+    const error = useSelector(state => state.onboardingReducer.error)
+    const loginStatus = useSelector(state => state.onboardingReducer.loginStatus)
+    console.log(loginStatus, "status")
     const linkedin = createRef()
     const onSubmit = () => {
         if (selected == "signup") {
@@ -44,12 +51,17 @@ const Layout = (props: IProps) => {
                     module: "users",
                     action: "login",
                     formData: {
-                        email: email,
-                        password: password
+                        user: {
+                            email: email,
+                            password: password
+                        }
                     }
                 })
         }
     }
+    useEffect(() => {
+        props.errors(actionTypes.ERROR, {})
+    }, [userName, email, password])
     return (
         <View >
             <Modal isVisible={isVisible} propagateSwipe={true}>
@@ -65,6 +77,7 @@ const Layout = (props: IProps) => {
                         {selected == "login" &&
                             <View style={styles.form}>
                                 <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+
                                 <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
                             </View>
                         }
@@ -72,8 +85,24 @@ const Layout = (props: IProps) => {
                             selected == "signup" &&
                             <View style={styles.form}>
                                 <TextField placeholder={"Enter yout name"} text={"Name"} setText={setUserName} secureTextEntry={false} />
+                                {/* {error.username && <Text style={{ color: "red" }}>username {error.username}</Text>} */}
                                 <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+                                {/* {error.email && <Text style={{ color: "red" }}>email {error.email}</Text>} */}
                                 <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
+                            </View>
+                        }
+                        {
+                            error &&
+                            <View style={{ marginLeft: "25%" }}>
+                                {Object.keys(error).map(function (key) {
+                                    var text = key + " " + error[key]
+                                    return (
+                                        <Text style={{ color: "red" }}>
+                                            {text}
+                                        </Text>
+                                    )
+                                })
+                                }
                             </View>
                         }
                         <View style={styles.footer}>
@@ -178,7 +207,8 @@ const mapStatesToProps = () => {
 const mapDispatchToProps = (dispatch) => {
     return {
         signin: (type: any, req: Object) => dispatch(signin(type, req)),
-        signup: (type: any, req: Object) => dispatch(signup(type, req))
+        signup: (type: any, req: Object) => dispatch(signup(type, req)),
+        errors: (type: any, text: Object) => dispatch(errors(type, "error", text))
     }
 }
 export default connect(null, mapDispatchToProps)(Layout)
