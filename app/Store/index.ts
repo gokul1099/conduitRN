@@ -9,7 +9,7 @@ import sagas from "./sagas"
 const config = {
     key: "root",
     storage: AsyncStorage,
-    blacklist: ["onboarding"],
+    blacklist: ["onboardingReducer"],
     debug: true,
 }
 const middleWare = []

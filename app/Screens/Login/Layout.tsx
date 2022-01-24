@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import actionTypes from "../../Store/actions/type"
 import { useSelector } from "react-redux"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
 interface IProps {
     signin: any,
     signup: any,
@@ -20,6 +21,7 @@ interface IProps {
 
 }
 const Layout = (props: IProps) => {
+    console.log(AsyncStorage.getItem("token"), "token")
     const [showLinkedin, setShowLinkedin] = useState(false)
     const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
@@ -28,11 +30,11 @@ const Layout = (props: IProps) => {
     const data = useSelector(state => state.onboardingReducer.userData)
     const error = useSelector(state => state.onboardingReducer.error)
     const loginStatus = useSelector(state => state.onboardingReducer.loginStatus)
-    console.log(loginStatus, "status")
+    // console.log(loginStatus, "status")
     const linkedin = createRef()
-    console.log(data, "data")
+    // console.log(data, "data")
     const storeData = async () => {
-        await AsyncStorage.setItem("token", data.user.token)
+
     }
     const onSubmit = () => {
         if (selected == "signup") {
@@ -62,11 +64,15 @@ const Layout = (props: IProps) => {
                     }
                 })
         }
-        storeData()
+
     }
     useEffect(() => {
         props.errors(actionTypes.ERROR, {})
-    }, [userName, email, password])
+    }, [userName, email, password, selected])
+    if (loginStatus === true) {
+        props.navigation.navigate("Profile")
+    }
+
     return (
         <View >
             {/* <Modal isVisible={isVisible} propagateSwipe={true}> */}
