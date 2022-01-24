@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import LoginModal from "../Login"
 import { useIsFocused } from "@react-navigation/core"
-const Layout = () => {
+const Layout = (props) => {
     const isFocussed = useIsFocused()
     useEffect(() => {
         if (isFocussed) {
@@ -13,7 +13,8 @@ const Layout = () => {
     return (
         <View>
             <Text>Profile</Text>
-            <LoginModal isVisible={showLogin} setVisible={setShowLogin} />
+            {/* <LoginModal isVisible={showLogin} setVisible={setShowLogin} /> */}
+            <Button title="login" onPress={() => { props.navigation.navigate("Login") }} />
         </View>
     )
 }

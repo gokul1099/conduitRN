@@ -10,6 +10,7 @@ import { signin, signup, isLoggedin, errors, loader } from "../../Store/actions/
 import { connect } from "react-redux"
 import actionTypes from "../../Store/actions/type"
 import { useSelector } from "react-redux"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 interface IProps {
     signin: any,
     signup: any,
@@ -19,7 +20,6 @@ interface IProps {
 
 }
 const Layout = (props: IProps) => {
-    const { isVisible, setVisible } = props
     const [showLinkedin, setShowLinkedin] = useState(false)
     const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
@@ -30,6 +30,10 @@ const Layout = (props: IProps) => {
     const loginStatus = useSelector(state => state.onboardingReducer.loginStatus)
     console.log(loginStatus, "status")
     const linkedin = createRef()
+    console.log(data, "data")
+    const storeData = async () => {
+        await AsyncStorage.setItem("token", data.user.token)
+    }
     const onSubmit = () => {
         if (selected == "signup") {
             props.signup(actionTypes.SIGNUP,
@@ -58,83 +62,82 @@ const Layout = (props: IProps) => {
                     }
                 })
         }
+        storeData()
     }
     useEffect(() => {
         props.errors(actionTypes.ERROR, {})
     }, [userName, email, password])
     return (
         <View >
-            <Modal isVisible={isVisible} propagateSwipe={true}>
-                <ScrollView>
-                    <View style={styles.modalContainer}>
-                        <Pressable onPress={() => { setVisible(false) }} style={{ marginTop: 20, marginLeft: 20 }}>
-                            <Text style={{ color: "black", fontSize: 20 }}>X</Text>
-                        </Pressable>
-                        <View style={styles.header}>
-                            <Pressable onPress={() => { setSelected("login") }} style={[styles.option, { backgroundColor: selected == "login" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "login" ? "white" : "black" }]}>Login</Text></Pressable>
-                            <Pressable onPress={() => { setSelected("signup") }} style={[styles.option, { backgroundColor: selected == "signup" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "signup" ? "white" : "black" }]}>SignUp</Text></Pressable>
-                        </View>
-                        {selected == "login" &&
-                            <View style={styles.form}>
-                                <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+            {/* <Modal isVisible={isVisible} propagateSwipe={true}> */}
+            <ScrollView>
+                <View style={styles.modalContainer}>
 
-                                <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
-                            </View>
-                        }
-                        {
-                            selected == "signup" &&
-                            <View style={styles.form}>
-                                <TextField placeholder={"Enter yout name"} text={"Name"} setText={setUserName} secureTextEntry={false} />
-                                {/* {error.username && <Text style={{ color: "red" }}>username {error.username}</Text>} */}
-                                <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
-                                {/* {error.email && <Text style={{ color: "red" }}>email {error.email}</Text>} */}
-                                <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
-                            </View>
-                        }
-                        {
-                            error &&
-                            <View style={{ marginLeft: "25%" }}>
-                                {Object.keys(error).map(function (key) {
-                                    var text = key + " " + error[key]
-                                    return (
-                                        <Text style={{ color: "red" }}>
-                                            {text}
-                                        </Text>
-                                    )
-                                })
-                                }
-                            </View>
-                        }
-                        <View style={styles.footer}>
-                            <Pressable style={styles.btn} onPress={() => { onSubmit() }}>
-                                <Text style={styles.btnText}>{selected == "login" ? "LogIn" : "SignUp"}</Text>
-                            </Pressable>
-                            <View style={{ flexDirection: "row" }}>
-                                <View style={styles.loginWith}></View>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}><Text>Or login with</Text></View>
-                                <View style={styles.loginWith}></View>
-                            </View>
-                            <View style={styles.iconContainer}>
-                                <View style={styles.icon}><SocialIcon type="facebook" onPress={() => { console.log("facebook") }} /></View>
-                                <View style={styles.icon}><SocialIcon type="google" onPress={() => { console.log('foursquare'); }} /></View>
-                                <View style={styles.icon}>
-                                    <LinkedInModal
-                                        ref={linkedin}
-                                        renderButton={() => <SocialIcon type="linkedin" />}
-                                        linkText={""}
-                                        clientID={"86ceoya3yiyxzh"}
-                                        clientSecret={"IxCXmXIVwpppElOC"}
-                                        redirectUri={"http://localhost:19006/"}
-                                        onSuccess={(token) => {
-                                            console.log(token)
-                                        }}
-                                    />
-                                </View>
+                    <View style={styles.header}>
+                        <Pressable onPress={() => { setSelected("login") }} style={[styles.option, { backgroundColor: selected == "login" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "login" ? "white" : "black" }]}>Login</Text></Pressable>
+                        <Pressable onPress={() => { setSelected("signup") }} style={[styles.option, { backgroundColor: selected == "signup" ? "black" : "#fff" }]}><Text style={[styles.optionText, { color: selected == "signup" ? "white" : "black" }]}>SignUp</Text></Pressable>
+                    </View>
+                    {selected == "login" &&
+                        <View style={styles.form}>
+                            <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+
+                            <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
+                        </View>
+                    }
+                    {
+                        selected == "signup" &&
+                        <View style={styles.form}>
+                            <TextField placeholder={"Enter yout name"} text={"Name"} setText={setUserName} secureTextEntry={false} />
+                            {/* {error.username && <Text style={{ color: "red" }}>username {error.username}</Text>} */}
+                            <TextField placeholder={"Your email id"} text={"Email"} setText={setEmail} secureTextEntry={false} />
+                            {/* {error.email && <Text style={{ color: "red" }}>email {error.email}</Text>} */}
+                            <TextField placeholder={"Password"} text={"Password"} setText={setPassword} secureTextEntry={true} />
+                        </View>
+                    }
+                    {
+                        error &&
+                        <View style={{ marginLeft: "25%" }}>
+                            {Object.keys(error).map(function (key) {
+                                var text = key + " " + error[key]
+                                return (
+                                    <Text style={{ color: "red" }}>
+                                        {text}
+                                    </Text>
+                                )
+                            })
+                            }
+                        </View>
+                    }
+                    <View style={styles.footer}>
+                        <Pressable style={styles.btn} onPress={() => { onSubmit() }}>
+                            <Text style={styles.btnText}>{selected == "login" ? "LogIn" : "SignUp"}</Text>
+                        </Pressable>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={styles.loginWith}></View>
+                            <View style={{ justifyContent: "center", alignItems: "center" }}><Text>Or login with</Text></View>
+                            <View style={styles.loginWith}></View>
+                        </View>
+                        <View style={styles.iconContainer}>
+                            <View style={styles.icon}><SocialIcon type="facebook" onPress={() => { console.log("facebook") }} /></View>
+                            <View style={styles.icon}><SocialIcon type="google" onPress={() => { console.log('foursquare'); }} /></View>
+                            <View style={styles.icon}>
+                                <LinkedInModal
+                                    ref={linkedin}
+                                    renderButton={() => <SocialIcon type="linkedin" />}
+                                    linkText={""}
+                                    clientID={"86ceoya3yiyxzh"}
+                                    clientSecret={"IxCXmXIVwpppElOC"}
+                                    redirectUri={"http://localhost:19006/"}
+                                    onSuccess={(token) => {
+                                        console.log(token)
+                                    }}
+                                />
                             </View>
                         </View>
                     </View>
-                </ScrollView>
-            </Modal>
+                </View>
+            </ScrollView>
+            {/* </Modal> */}
         </View>
     )
 }
