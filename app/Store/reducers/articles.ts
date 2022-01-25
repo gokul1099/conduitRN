@@ -1,4 +1,3 @@
-
 import actionTypes from "../actions/type";
 export default function createReducer(initialState: any, handlers: any) {
     return function reducer(state = initialState, action: any) {
@@ -11,103 +10,121 @@ export default function createReducer(initialState: any, handlers: any) {
 }
 
 const initialState = {}
-export const onboardingReducer = createReducer(initialState, {
-    [actionTypes.IS_LOGIN](state: any, action: any) {
-        return {
-            ...state,
-            [action.index]: action.data
-        }
-    },
+
+export const articlesReducer = createReducer(initialState, {
+
     [actionTypes.ERROR](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.LOGIN](state: any, action: any) {
+    [actionTypes.ARTICLES_FROM_FOLLOWEES](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.LOGIN_DATA](state: any, action: any) {
-        console.log("from  reducer")
+    [actionTypes.ARTICLES_FROM_FOLLOWEES_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.SIGNUP](state: any, action: any) {
+    [actionTypes.GLOBAL_ARTICLES](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.SIGNUP_DATA](state: any, action: any) {
+    [actionTypes.GLOBAL_ARTICLES_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.GET_CURRENT_USER_DATAIL](state: any, action: any) {
+    [actionTypes.CREATE_ARTICLES](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.GET_CURRENT_USER_DATAIL_DATA](state: any, action: any) {
+    [actionTypes.CREATE_ARTICLES_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.UPDATE_USER_DETAIL](state: any, action: any) {
+    [actionTypes.GET_ARTICLES](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.UPDATE_USER_DETAIL_DATA](state: any, action: any) {
+    [actionTypes.GET_ARTICLES_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.GET_USER_PROFILE](state: any, action: any) {
+    [actionTypes.UPDATE_ARTICLE](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.GET_USER_PROFILE_DATA](state: any, action: any) {
+    [actionTypes.UPDATE_ARTICLE_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.FOLLOW_USER](state: any, action: any) {
+    [actionTypes.DELECT_ARTICLE](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.FOLLOW_USER_DATA](state: any, action: any) {
+    [actionTypes.DELECT_ARTICLE_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
     },
-    [actionTypes.UNFOLLOW_USER](state: any, action: any) {
+    [actionTypes.FAV_ARTICLE](state: any, action: any) {
 
         return {
             ...state
         }
     },
-    [actionTypes.UNFOLLOW_USER_DATA](state: any, action: any) {
+    [actionTypes.FAV_ARTICLE_DATA](state: any, action: any) {
         return {
             ...state,
             [action.index]: action.data
         }
-    }
+    },
+    [actionTypes.UNFAV_ARTICLE](state: any, action: any) {
+
+        return {
+            ...state
+        }
+    },
+    [actionTypes.UNFAV_ARTICLE_DATA](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: action.data
+        }
+    },
+    [actionTypes.GET_TAGS](state: any, action: any) {
+
+        return {
+            ...state
+        }
+    },
+    [actionTypes.GET_TAGS_DATA](state: any, action: any) {
+        return {
+            ...state,
+            [action.index]: action.data
+        }
+    },
 })
-

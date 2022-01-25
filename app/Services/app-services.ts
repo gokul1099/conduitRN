@@ -12,3 +12,13 @@ export function postRequest(data: object) {
     let inputRequest = data.payload
     return request({ method: "post", data: inputRequest })
 }
+
+export function putRequest(data: object) {
+    let inputRequest = data.payload
+    return request({ method: "post", data: inputRequest })
+}
+
+export function deleteRequest(data: object) {
+    let inputRequest = data.payload
+    return request({ method: "delete", data: inputRequest })
+}

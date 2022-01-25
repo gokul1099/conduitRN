@@ -1,8 +1,6 @@
-import { types } from "@babel/core";
-import actionTypes from "./type";
 
 
-export function loader(type: string, index: string, data: object) {
+export function loader(type: string, index: string, data: boolean) {
     return {
         type: type,
         index,
@@ -32,7 +30,6 @@ export function signup(type: string, payload: any) {
 }
 
 export function singupData(type: string, index: string, data: object) {
-    console.log(data, "from data action")
     return {
         type,
         index,
@@ -48,7 +45,83 @@ export function signin(type: string, payload: any) {
 }
 
 export function singinData(type: string, index: string, data: object) {
-    console.log(type)
+    return {
+        type,
+        index,
+        data
+    }
+}
+
+
+export function getUserDetail(type: string, payload: any) {
+    return {
+        type,
+        payload
+    }
+}
+
+export function getUserDetailData(type: string, index: string, data: object) {
+    return {
+        type,
+        index,
+        data
+    }
+}
+
+
+export function updateUserDetail(type: string, payload: any) {
+    return {
+        type,
+        payload
+    }
+}
+
+export function updateUserDetailData(type: string, index: string, data: object) {
+    return {
+        type,
+        index,
+        data
+    }
+}
+
+
+export function getProfile(type: string, payload: any) {
+    return {
+        type,
+        payload
+    }
+}
+
+export function getProfileData(type: string, index: string, data: object) {
+    return {
+        type,
+        index,
+        data
+    }
+}
+
+export function followProfile(type: string, payload: any) {
+    return {
+        type,
+        payload
+    }
+}
+
+export function followProfileData(type: string, index: string, data: object) {
+    return {
+        type,
+        index,
+        data
+    }
+}
+export function unFollowProfile(type: string, payload: any) {
+    return {
+        type,
+        payload
+    }
+}
+
+export function unFollowProfileData(type: string, index: string, data: object) {
     return {
         type,
         index,
