@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const storeData = async (data: object) => {
     const token = data?.user.token
-    await AsyncStorage.setItem("token", JSON.stringify(token))
+    await AsyncStorage.setItem("token", token)
 }
 export function* signupSaga(service: any, payload: object): any {
     try {

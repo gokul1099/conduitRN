@@ -12,6 +12,7 @@ import ReadingListScreen from "../Screens/ReadingList";
 import Profile from "../Screens/Profile";
 import CreateScreen from "../Screens/Create";
 import LoginModal from "../Screens/Login";
+import ReadStory from "../Screens/ReadStory";
 
 //*****  for sidebar *****
 const Drawer = createDrawerNavigator()
@@ -82,6 +83,8 @@ const StackScreens = () => {
             <StackNavigation.Navigator>
                 <StackNavigation.Screen name="Tabs" component={TabNavigator} options={{ headerShown: false }} />
                 <StackNavigation.Screen name="Login" component={LoginModal} options={{ headerShown: false }} />
+                <StackNavigation.Screen name="ReadStory" component={ReadStory} options={{ headerShown: false }} />
+
             </StackNavigation.Navigator>
         </NavigationContainer>
     )

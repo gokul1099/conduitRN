@@ -17,13 +17,11 @@ const request = async (options: any) => {
     return req
 }
 
-const callService = (options: Object) => {
+const callService = async (options: Object) => {
 
-    var tempOptions = JSON.stringify(options.data.formData)
-    var headers: any
-    var token = AsyncStorage.getItem("token")
+    var tempOptions = JSON.stringify(options.data?.formData)
+    var token = await AsyncStorage.getItem("token")
     let url = "https://api.realworld.io/api/" + options.data.module + "/" + options.data.action
-    console.log(url, "url")
     var client: any = {
         method: options.method,
         url: url,
@@ -34,7 +32,7 @@ const callService = (options: Object) => {
         }
     }
     if (options.method == "get") {
-        client.params = options.data.formData
+        client.params = options.data?.formData
     }
     else {
         client.data = tempOptions

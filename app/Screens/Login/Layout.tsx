@@ -21,7 +21,6 @@ interface IProps {
 
 }
 const Layout = (props: IProps) => {
-    console.log(AsyncStorage.getItem("token"), "token")
     const [showLinkedin, setShowLinkedin] = useState(false)
     const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
@@ -30,12 +29,8 @@ const Layout = (props: IProps) => {
     const data = useSelector(state => state.onboardingReducer.userData)
     const error = useSelector(state => state.onboardingReducer.error)
     const loginStatus = useSelector(state => state.onboardingReducer.loginStatus)
-    // console.log(loginStatus, "status")
     const linkedin = createRef()
-    // console.log(data, "data")
-    const storeData = async () => {
 
-    }
     const onSubmit = () => {
         if (selected == "signup") {
             props.signup(actionTypes.SIGNUP,
